@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parole Casuali</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+            background-color: black; 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+        }
+        .hidden { display: none; }
+        button { 
+            font-size: 1.5em; 
+            margin: 10px; 
+            padding: 10px; 
+            cursor: pointer; 
+        }
+        #wordDisplay { 
+            font-size: 4em; 
+            font-weight: bold; 
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h1>Seleziona una lista</h1>
+        <button onclick="startGame(1, 5000)">Lista 1</button>
+        <button onclick="startGame(2, 10000)">Lista 2</button>
+        <button onclick="startGame(3, 7000)">Lista 3</button>
+    </div>
+    
+    <div id="wordDisplay" class="hidden"></div>
+    
+    <script>
+        const lists = {
+            1: ["vento", "sogno", "mare", "tempo", "ombra"],
+            2: ["luce", "radice", "memoria", "futuro", "viaggio"],
+            3: ["eco", "ritmo", "spazio", "respiro", "silenzio"]
+        };
+        
+        let interval;
+        function startGame(listNumber, timeInterval) {
+            clearInterval(interval); 
+            document.getElementById("menu").classList.add("hidden");
+            const wordDisplay = document.getElementById("wordDisplay");
+            wordDisplay.classList.remove("hidden");
+            
+            function updateWord() {
+                const words = lists[listNumber];
+                wordDisplay.innerText = words[Math.floor(Math.random() * words.length)];
+            }
+            
+            updateWord(); 
+            interval = setInterval(updateWord, timeInterval);
+        }
+    </script>
+</body>
+</html>
