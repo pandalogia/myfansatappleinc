@@ -29,40 +29,56 @@
             font-size: 4em; 
             font-weight: bold; 
             text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div id="menu">
         <h1>Seleziona una lista</h1>
-        <button onclick="startGame(1, 5000)">Lista 1</button>
-        <button onclick="startGame(2, 10000)">Lista 2</button>
-        <button onclick="startGame(3, 7000)">Lista 3</button>
+        <button onclick="startGame(1, 2000)">Lista 1 (Soggetti)</button>
+        <button onclick="startGame(2, 3000)">Lista 2 (Verbi)</button>
+        <button onclick="startGame(3, 4000)">Lista 3 (Complementi)</button>
     </div>
     
     <div id="wordDisplay" class="hidden"></div>
     
     <script>
         const lists = {
-            1: ["vento", "sogno", "mare", "tempo", "ombra"],
-            2: ["luce", "radice", "memoria", "futuro", "viaggio"],
-            3: ["eco", "ritmo", "spazio", "respiro", "silenzio"]
+            1: ["Apple", "Apple Computer, Inc.", "Apple Computer Company", "Steve Jobs", "Steve Wozniak", "Ronald Wayne", "l'azienda", "i prodotti", "il Macintosh", "l'iPhone", "l'iPad", "l'Apple Watch", "l'Apple TV", "l'iPod", "gli utenti", "i dipendenti"],
+            2: ["è", "era", "sono", "erano", "ha", "aveva", "hanno", "avevano", "produce", "produsse", "produssero", "sviluppa", "sviluppò", "sviluppano", "svilupparono"],
+            3: ["prodotti di elettronica di consumo", "personal computer", "smartphone", "tablet", "lettori di musica digitale", "orologi intelligenti", "software", "servizi online"]
         };
-        
+
         let interval;
-        function startGame(listNumber, timeInterval) {
-            clearInterval(interval); 
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(listNumber, intervalTime) {
             document.getElementById("menu").classList.add("hidden");
             const wordDisplay = document.getElementById("wordDisplay");
             wordDisplay.classList.remove("hidden");
             
-            function updateWord() {
-                const words = lists[listNumber];
-                wordDisplay.innerText = words[Math.floor(Math.random() * words.length)];
+            let words = [...lists[listNumber]];
+            shuffleArray(words);
+            let index = 0;
+            
+            function showNextWord() {
+                if (index >= words.length) {
+                    shuffleArray(words);
+                    index = 0;
+                }
+                wordDisplay.textContent = words[index];
+                index++;
             }
             
-            updateWord(); 
-            interval = setInterval(updateWord, timeInterval);
+            showNextWord();
+            interval = setInterval(showNextWord, intervalTime);
         }
     </script>
 </body>
