@@ -36,9 +36,9 @@
 <body>
     <div id="menu">
         <h1>Seleziona una lista</h1>
-        <button onclick="startGame(1, 2000)">Lista 1 (Soggetti)</button>
-        <button onclick="startGame(2, 3000)">Lista 2 (Verbi)</button>
-        <button onclick="startGame(3, 4000)">Lista 3 (Complementi)</button>
+        <button onclick="startGame(1, 20000)"> 1 (Soggetti)</button>
+<button onclick="startGame(2, 40000)"> 2 (Verbi)</button>
+<button onclick="startGame(3, 28000)"> 3 (Complementi)</button>
     </div>
     
     <div id="wordDisplay" class="hidden"></div>
@@ -51,13 +51,6 @@
         };
 
         let interval;
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
 
         function startGame(listNumber, intervalTime) {
             document.getElementById("menu").classList.add("hidden");
@@ -79,6 +72,13 @@
             
             showNextWord();
             interval = setInterval(showNextWord, intervalTime);
+        }
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
     </script>
 </body>
